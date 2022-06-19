@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request
 from Motor import *
+from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
+run_with_ngrok(app)
 PWM = Motor()
 
 @app.route('/', methods=['GET', 'POST'])
 def on():
     if request.method == 'POST':
+        print(request.form)
 
         direction = request.form.get('direction')
 
@@ -39,5 +42,6 @@ def on():
 
     return render_template('index.html')
 
-
+if __name__ == "__main__":
+  app.run()
 #test comment to check Git. Please ignore4
