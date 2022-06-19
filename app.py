@@ -42,6 +42,11 @@ def on():
 
     return render_template('index.html')
 
+<<<<<<< HEAD
 if __name__ == "__main__":
   app.run()
 #test comment to check Git. Please ignore4
+=======
+
+#test comment to check Git. Please ignore5
+>>>>>>> 85ab5b772844603926395bfc388c59581f69ed25
