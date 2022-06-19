@@ -1,5 +1,5 @@
 <html>
-
+<!-- TEST COMMENT -->
     <head>
         <title>Drive the car!</title>
         <link rel="stylesheet" href="css/main.css" />
@@ -8,15 +8,6 @@
 <body>
 
     <h1>Drive my car...</h1>
-    <video id = 'localvideo' autoplay playsinline></video>
-    <video id = 'remotevideo' autoplay playsinline></video>
-
-    <!-- <div>
-        <button id = 'startButton'>Start</button>
-        <button id = 'callButton'>Call</button>
-        <button id = 'hangupButton'>Hang Up</button>
-    </div> -->
-
 
     <form action="/" method="post">
         <button name = "direction" value="FORWARD">Forward</button>
@@ -31,8 +22,19 @@
         <button name = "direction" value="RIGHT">Right</button>
     </form>
     
-    <script src="js/main.js"></script>
-    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <video id = 'localvideo' autoplay playsinline></video>
+    <video id = 'remotevideo' autoplay playsinline></video>
+
+
+<button type="button" onclick="moveForward()">Move Forward</button>
+
+<script>
+    function moveForward() {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open("PUSH", "http://127.0.0.1:5000/", true);
+        httpRequest.send("direction=FORWARD")
+    }
+</script>
 
 
 </body>
