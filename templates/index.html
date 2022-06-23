@@ -21,33 +21,24 @@
     <form action="/" method="post">
         <button name = "direction" value="RIGHT">Right</button>
     </form>
-    
-<<<<<<< HEAD
-    <button type="button" onclick="moveForward()">Second Forward!</button>
 
-    <script>
-        function moveForward() {
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.open("POST", "http://127.0.0.1:5000/", true);
-            httpRequest.send("direction=FORWARD")
-        }
-    </script>
-=======
-    <video id = 'localvideo' autoplay playsinline></video>
-    <video id = 'remotevideo' autoplay playsinline></video>
+<button type="button" onclick="moveForward('FORWARD')">Move Forward</button>
+<button type="button" onclick="moveForward('BACK')">Move Back</button>
+<button type="button" onclick="moveForward('LEFT')">Move Left</button>
+<button type="button" onclick="moveForward('RIGHT')">Move Right</button>
 
-
-<button type="button" onclick="moveForward()">Move Forward</button>
 
 <script>
-    function moveForward() {
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.open("PUSH", "http://127.0.0.1:5000/", true);
-        httpRequest.send("direction=FORWARD")
+    // The direction comes in from each button
+    function moveForward(direction) {
+        var httpRequest = new XMLHttpRequest(),
+        FD = new FormData();
+        FD.append("direction", direction)
+        // What to do with where to send the data?
+        httpRequest.open("POST", "http://127.0.0.1:5000/", true);
+        httpRequest.send(FD)
     }
 </script>
-
->>>>>>> 0c137afcfa5dd6a1147500a81f381149670586bd
 
 </body>
 
