@@ -6,11 +6,12 @@ PWM = Motor()
 
 @app.route('/', methods=['GET', 'POST'])
 def on():
-    if request.method == 'POST':
-        print(request)
-        
-        direction = request.form.get('direction')
 
+    if request.method == 'POST':
+        # You recieve a wierd immutable dict as your async FORM. So need to make it to normal dict below
+        dict_direction = request.form.to_dict()
+        direction = dict_direction['direction']
+        
         if direction == 'FORWARD':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(2000,2000,2000,2000)
