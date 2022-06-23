@@ -9,8 +9,13 @@ PWM = Motor()
 @app.route('/', methods=['GET', 'POST'])
 def on():
     if request.method == 'POST':
+<<<<<<< HEAD
         print(request.form)
 
+=======
+        print(request)
+        
+>>>>>>> 0c137afcfa5dd6a1147500a81f381149670586bd
         direction = request.form.get('direction')
 
         if direction == 'FORWARD':
