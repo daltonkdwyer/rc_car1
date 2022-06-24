@@ -29,13 +29,14 @@
 
 
 <script>
+    const website = "http://127.0.0.1:5000/"
     // The direction comes in from each button
     function moveForward(direction) {
         var httpRequest = new XMLHttpRequest(),
         FD = new FormData();
         FD.append("direction", direction)
         // What to do with where to send the data?
-        httpRequest.open("POST", "http://127.0.0.1:5000/", true);
+        httpRequest.open("POST", website, true);
         httpRequest.send(FD)
     }
 </script>
