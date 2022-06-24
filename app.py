@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 from Motor import *
 from flask_ngrok import run_with_ngrok
 
+# To Gitpush when you're logged in to the Rpi, here is PAT: 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
+
 app = Flask(__name__)
 run_with_ngrok(app)
 PWM = Motor()
