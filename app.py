@@ -11,7 +11,7 @@ request_num = 0
 
 @app.route('/', methods=['GET', 'POST'])
 def on():
-    print("START: SERVER REQUEST #" + request_num)
+    print("START: SERVER REQUEST #" + str(request_num))
     print("Request type: " + str(request.method))
 
     if request.method == 'POST':
