@@ -15,7 +15,7 @@ def on():
     global request_num
     print("START: SERVER REQUEST #" + str(request_num))
     print("Request type: " + str(request.method))
-    print("Header: " + str(request.headers))
+    # print("Header: " + str(request.headers))
 
     if request.method == 'POST':
         print("Request: " + str(request))
