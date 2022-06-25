@@ -16,6 +16,7 @@ def on():
         # You recieve a wierd immutable dict as your async FORM. So need to make it to normal dict below
             dict_direction = request.form.to_dict()
             direction = dict_direction['direction']
+            print("Direction: " + str(direction))
 
             if direction == 'FORWARD':
                 PWM.setMotorModel(0,0,0,0)
@@ -41,7 +42,7 @@ def on():
                 time.sleep(0.5)
                 PWM.setMotorModel(0,0,0,0)
             print("END OF PROCESS")
-            
+
         return render_template('index.html')
 
 
