@@ -11,6 +11,8 @@ request_num = 0
 
 @app.route('/', methods=['GET', 'POST'])
 def on():
+    # Need to access request_num inside the function
+    global request_num
     print("START: SERVER REQUEST #" + str(request_num))
     print("Request type: " + str(request.method))
 
