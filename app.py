@@ -45,13 +45,15 @@ def on():
             time.sleep(0.5)
             PWM.setMotorModel(0,0,0,0)
 
-        print("END OF PROCESS")
+        request_num += 1
+        print("END OF REQUEST")
         return render_template('index.html')
 
     # On first load this will happen: 
     if request.method == 'GET':
+        request_num += 1
         print("Request: " + str(request))
-        print("END OF PROCESS")
+        print("END OF GET REQUEST")
         return render_template('index.html')
 
     # Error Handling: 
