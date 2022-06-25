@@ -40,7 +40,8 @@ def on():
                 PWM.setMotorModel(2000,2000,0,0)
                 time.sleep(0.5)
                 PWM.setMotorModel(0,0,0,0)
-        print("END OF PROCESS")
+            print("END OF PROCESS")
+            
         return render_template('index.html')
 
 
