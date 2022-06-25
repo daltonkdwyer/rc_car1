@@ -7,18 +7,19 @@ from flask_ngrok import run_with_ngrok
 app = Flask(__name__)
 run_with_ngrok(app)
 PWM = Motor()
+request_num = 0
 
 @app.route('/', methods=['GET', 'POST'])
 def on():
-    print("START OF PROCESS")
+    print("START: SERVER REQUEST #" + request_num)
     print("Request type: " + str(request.method))
 
     if request.method == 'POST':
         print("Request: " + str(request))
-    # You recieve a wierd immutable dict as your async FORM. So need to make it to normal dict below
+        # You recieve a wierd immutable dict as your async FORM. So need to make it to normal dict below
         dict_direction = request.form.to_dict()
         direction = dict_direction['direction']
-        print("Direction: " + str(direction))
+        print("FORM DATA: " + str(dict_direction))
 
         if direction == 'FORWARD':
             PWM.setMotorModel(0,0,0,0)
@@ -43,16 +44,16 @@ def on():
             PWM.setMotorModel(2000,2000,0,0)
             time.sleep(0.5)
             PWM.setMotorModel(0,0,0,0)
+
         print("END OF PROCESS")
         return render_template('index.html')
 
+    # On first load this will happen: 
     if request.method == 'GET':
         print("Request: " + str(request))
         print("END OF PROCESS")
         return render_template('index.html')
 
+    # Error Handling: 
     else:
         return("NOT A GET OR POST REQUEST?")
-
-    print("FINAL END OF PROCESS")
-#test comment to check Git. Please ignore6
