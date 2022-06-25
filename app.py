@@ -13,7 +13,6 @@ def on():
     print("START OF PROCESS")
     print("Request type: " + str(request.method))
 
-
     if request.method == 'POST':
         print("Request: " + str(request))
     # You recieve a wierd immutable dict as your async FORM. So need to make it to normal dict below
@@ -44,13 +43,13 @@ def on():
             PWM.setMotorModel(2000,2000,0,0)
             time.sleep(0.5)
             PWM.setMotorModel(0,0,0,0)
-        return render_template('index.html')
         print("END OF PROCESS")
+        return render_template('index.html')
 
     if request.method == 'GET':
         print("Request: " + str(request))
-        return render_template('index.html')
         print("END OF PROCESS")
+        return render_template('index.html')
 
     else:
         return("NOT A GET OR POST REQUEST?")
