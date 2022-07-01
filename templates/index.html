@@ -8,15 +8,15 @@
 <body>
     <h1>Drive my car...</h1>
 
-<button type="button" onclick="moveForward('FORWARD')">Move Forward</button>
-<button type="button" onclick="moveForward('BACK')">Move Back</button>
-<button type="button" onclick="moveForward('LEFT')">Move Left</button>
-<button type="button" onclick="moveForward('RIGHT')">Move Right</button>
+<button type="button" onclick="moveVehicle('FORWARD')">Move Forward</button>
+<button type="button" onclick="moveVehicle('BACK')">Move Back</button>
+<button type="button" onclick="moveVehicle('LEFT')">Move Left</button>
+<button type="button" onclick="moveVehicle('RIGHT')">Move Right</button>
 
 <script>
-    const website = "http://192.168.1.219:5000/"
+    const website = "http://127.0.0.1:5000/"
     // The direction comes in from each button
-    function moveForward(direction) {
+    function moveVehicle(direction) {
         var httpRequest = new XMLHttpRequest(),
         FD = new FormData();
         FD.append("direction", direction)
