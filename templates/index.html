@@ -1,5 +1,5 @@
 <html>
-<!-- TEST COMMENT -->
+<!-- TEST COMMENT, PLEASE IGNORE -->
     <head>
         <title>Drive the car!</title>
         <link rel="stylesheet" href="css/main.css" />
@@ -14,7 +14,7 @@
 <button type="button" onclick="moveVehicle('RIGHT')">Move Right</button>
 
 <script>
-    const website = "http://192.168.1.219:5000/"
+    const website = "https://77db-71-125-233-231.ngrok.io"
     // The direction comes in from each button
     function moveVehicle(direction) {
         var httpRequest = new XMLHttpRequest(),
@@ -24,20 +24,34 @@
         httpRequest.open("POST", website, true);
         httpRequest.send(FD)
     }
+
+    window.addEventListener('keydown', (e) => {
+        if (event.defaultPrevented) {
+            return;
+        };
+
+        switch (event.key){
+            case "ArrowUp":
+                moveVehicle("FORWARD")
+                break;
+            case "ArrowDown":
+                moveVehicle("BACK")
+                break;
+            case "ArrowLeft":
+                moveVehicle("LEFT")
+                break;
+            case "ArrowRight":
+                moveVehicle("RIGHT")
+                break;
+        }
+        event.preventDefault();
+    }, true);
+
+    document.addEventListener('keyup', (e) => {
+        moveVehicle("STOP")
+    })
+
 </script>
 </body>
 
 </html>
-
-    <!-- <form action="/" method="post">
-        <button name = "direction" value="FORWARD">Forward</button>
-    </form>
-    <form action="/" method="post">
-        <button name = "direction" value="BACK">Back</button>
-    </form>
-    <form action="/" method="post">
-        <button name = "direction" value="LEFT">Left</button>
-    </form>
-    <form action="/" method="post">
-        <button name = "direction" value="RIGHT">Right</button>
-    </form> -->

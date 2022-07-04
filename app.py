@@ -24,25 +24,28 @@ def on():
         direction = dict_direction['direction']
         print("FORM DATA: " + str(dict_direction))
 
-        if direction == 'FORWARD':
+        if direction == 'STOP':
+            PWM.setMotorModel(0,0,0,0)
+
+        if direction == 'BACK':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(2000,2000,2000,2000)
             time.sleep(0.5)
             PWM.setMotorModel(0,0,0,0)
 
-        if direction == 'BACK':
+        if direction == 'FORWARD':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(-2000,-2000,-2000,-2000)
             time.sleep(0.5)
             PWM.setMotorModel(0,0,0,0)
 
-        if direction == 'LEFT':
+        if direction == 'RIGHT':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(0,0,2000,2000)
             time.sleep(0.5)
             PWM.setMotorModel(0,0,0,0)
             
-        if direction == 'RIGHT':
+        if direction == 'LEFT':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(2000,2000,0,0)
             time.sleep(0.5)
