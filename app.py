@@ -30,8 +30,8 @@ def on():
         if direction == 'BACK':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(2000,2000,2000,2000)
-            time.sleep(0.5)
-            PWM.setMotorModel(0,0,0,0)
+            # time.sleep(0.5)
+            # PWM.setMotorModel(0,0,0,0)
 
         if direction == 'FORWARD':
             PWM.setMotorModel(0,0,0,0)
