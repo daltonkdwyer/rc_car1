@@ -20,16 +20,20 @@
         var httpRequest = new XMLHttpRequest(),
         FD = new FormData();
         FD.append("direction", direction)
-        // What to do with where to send the data?
+        // Shows where to send the data below (note that website is declared 6 lines above)
         httpRequest.open("POST", website, true);
         httpRequest.send(FD)
     }
 
-    window.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', (e) => {
+        // One of the below two functions prevents repeated POST requests from going through
+        if (e.repeat) {
+            console.log("PREVENT REPEAT???")
+            return;
+        }
         if (event.defaultPrevented) {
             return;
         };
-
         switch (event.key){
             case "ArrowUp":
                 moveVehicle("FORWARD")
@@ -43,13 +47,24 @@
             case "ArrowRight":
                 moveVehicle("RIGHT")
                 break;
+            case "Spacebar":
+                moveVehicle("STOP")
+                break;
+            default:
+                return;
         }
+
         event.preventDefault();
     }, true);
 
-    document.addEventListener('keyup', (e) => {
+    window.addEventListener('keyup', function (event) {
+        if (event.defaultPrevented) {
+            return;
+        };
         moveVehicle("STOP")
-    })
+
+        event.preventDefault();
+    }, true)
 
 </script>
 </body>

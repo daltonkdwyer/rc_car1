@@ -36,20 +36,20 @@ def on():
         if direction == 'FORWARD':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(-2000,-2000,-2000,-2000)
-            time.sleep(0.5)
-            PWM.setMotorModel(0,0,0,0)
+            # time.sleep(0.5)
+            # PWM.setMotorModel(0,0,0,0)
 
         if direction == 'RIGHT':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(0,0,2000,2000)
-            time.sleep(0.5)
-            PWM.setMotorModel(0,0,0,0)
+            # time.sleep(0.5)
+            # PWM.setMotorModel(0,0,0,0)
             
         if direction == 'LEFT':
             PWM.setMotorModel(0,0,0,0)
             PWM.setMotorModel(2000,2000,0,0)
-            time.sleep(0.5)
-            PWM.setMotorModel(0,0,0,0)
+            # time.sleep(0.5)
+            # PWM.setMotorModel(0,0,0,0)
 
         request_num += 1
         print("END OF REQUEST")
