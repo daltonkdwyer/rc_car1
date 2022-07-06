@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+import flask 
 from Motor import *
 from flask_ngrok import run_with_ngrok
 
