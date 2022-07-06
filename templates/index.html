@@ -25,9 +25,9 @@
         httpRequest.send(FD)
     }
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', (event) => {
         // One of the below two functions prevents repeated POST requests from going through
-        if (e.repeat) {
+        if (event.repeat) {
             console.log("PREVENT REPEAT???")
             return;
         }
