@@ -1,4 +1,4 @@
-import flask as Flask
+import flask import Flask, render_template, request
 from Motor import *
 from flask_ngrok import run_with_ngrok
 
