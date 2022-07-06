@@ -65,3 +65,6 @@ def on():
     # Error Handling: 
     else:
         return("NOT A GET OR POST REQUEST?")
+
+if __name__ == "__main__":
+    app.run()
