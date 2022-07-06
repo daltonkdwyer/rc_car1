@@ -1,4 +1,4 @@
-import flask 
+import flask as Flask
 from Motor import *
 from flask_ngrok import run_with_ngrok
 
