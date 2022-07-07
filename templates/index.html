@@ -14,7 +14,7 @@
 <button type="button" onclick="moveVehicle('RIGHT')">Move Right</button> -->
 
 <script>
-    const website = "http://127.0.0.1:5000/"
+    const website = "http://192.168.1.219:5000/"
     // The direction comes in from each button
     function moveVehicle(direction) {
         var httpRequest = new XMLHttpRequest(),
@@ -25,12 +25,10 @@
         httpRequest.send(FD)
     }
 
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener('keydown', (e) => {
         // One of the below two functions prevents repeated POST requests from going through
-        if (event.repeat) {
-            console.log("PREVENT REPEAT???")
-            return;
-        }
+        if (e.repeat) return;
+
         if (event.defaultPrevented) {
             return;
         };
