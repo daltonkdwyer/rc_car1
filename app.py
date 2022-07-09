@@ -13,12 +13,13 @@ request_num = 0
 def on():
     # Need to access request_num inside the function
     global request_num
-    print("START: SERVER REQUEST #" + str(request_num))
+    print("START OF REQUEST")
+    print("REQUEST #: " + str(request_num))
     print("Request type: " + str(request.method))
     # print("Header: " + str(request.headers))
 
     if request.method == 'POST':
-        print("Request: " + str(request))
+        print("Request from: " + str(request))
         # You recieve a wierd immutable dict as your async FORM. So need to make it to normal dict below
         dict_direction = request.form.to_dict()
         direction = dict_direction['direction']
