@@ -1,71 +1,57 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
+from flask_socketio import SocketIO, emit, send
 from Motor import *
 from flask_ngrok import run_with_ngrok
 
-# To Gitpush when you're logged in to the Rpi, here is PAT: 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
-
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins='*')
 run_with_ngrok(app)
 PWM = Motor()
-request_num = 0
 
-@app.route('/', methods=['GET', 'POST'])
-def on():
-    # Need to access request_num inside the function
-    global request_num
-    print("START OF REQUEST")
-    print("REQUEST #: " + str(request_num))
-    print("Request type: " + str(request.method))
-    # print("Header: " + str(request.headers))
+print("TESTing")
 
-    if request.method == 'POST':
-        print("Request from: " + str(request))
-        # You recieve a wierd immutable dict as your async FORM. So need to make it to normal dict below
-        dict_direction = request.form.to_dict()
-        direction = dict_direction['direction']
-        print("FORM DATA: " + str(dict_direction))
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-        if direction == 'STOP':
-            PWM.setMotorModel(0,0,0,0)
+@socketio.on('connect')
+def on_connect():
+    print('Client connected')
 
-        if direction == 'BACK':
-            PWM.setMotorModel(0,0,0,0)
-            PWM.setMotorModel(2000,2000,2000,2000)
-            # time.sleep(0.5)
-            # PWM.setMotorModel(0,0,0,0)
+@socketio.on('disconnect')
+def on_disconnect():
+    print('Client disconnected')
 
-        if direction == 'FORWARD':
-            PWM.setMotorModel(0,0,0,0)
-            PWM.setMotorModel(-2000,-2000,-2000,-2000)
-            # time.sleep(0.5)
-            # PWM.setMotorModel(0,0,0,0)
+@socketio.on('move_command')
+def handle_my_custom_event(direction):
+    print('Received Direction:', direction)
 
-        if direction == 'LEFT':
-            PWM.setMotorModel(0,0,0,0)
-            PWM.setMotorModel(0,0,-2000,-2000)
-            # time.sleep(0.5)
-            # PWM.setMotorModel(0,0,0,0)
-            
-        if direction == 'RIGHT':
-            PWM.setMotorModel(0,0,0,0)
-            PWM.setMotorModel(-2000,-2000,0,0)
-            # time.sleep(0.5)
-            # PWM.setMotorModel(0,0,0,0)
+    if direction == 'STOP':
+        PWM.setMotorModel(0,0,0,0)
 
-        request_num += 1
-        print("END OF REQUEST")
-        return render_template('index.html')
+    if direction == 'BACK':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(2000,2000,2000,2000)
+        # time.sleep(0.5)
+        # PWM.setMotorModel(0,0,0,0)
 
-    # On first load this will happen: 
-    if request.method == 'GET':
-        request_num += 1
-        print("Request: " + str(request))
-        print("END OF GET REQUEST")
-        return render_template('index.html')
+    if direction == 'FORWARD':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(-2000,-2000,-2000,-2000)
+        # time.sleep(0.5)
+        # PWM.setMotorModel(0,0,0,0)
 
-    # Error Handling: 
-    else:
-        return("NOT A GET OR POST REQUEST?")
+    if direction == 'LEFT':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(0,0,-2000,-2000)
+        # time.sleep(0.5)
+        # PWM.setMotorModel(0,0,0,0)
+        
+    if direction == 'RIGHT':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(-2000,-2000,0,0)
+        # time.sleep(0.5)
+        # PWM.setMotorModel(0,0,0,0)
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    socketio.run(app)
