@@ -6,7 +6,7 @@ from flask_ngrok import run_with_ngrok
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
 run_with_ngrok(app)
-PWM = Motor()
+# PWM = Motor()
 
 print("TESTing")
 
@@ -26,32 +26,32 @@ def on_disconnect():
 def handle_my_custom_event(direction):
     print('Received Direction:', direction)
 
-    if direction == 'STOP':
-        PWM.setMotorModel(0,0,0,0)
+    # if direction == 'STOP':
+    #     PWM.setMotorModel(0,0,0,0)
 
-    if direction == 'BACK':
-        PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(2000,2000,2000,2000)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
+    # if direction == 'BACK':
+    #     PWM.setMotorModel(0,0,0,0)
+    #     PWM.setMotorModel(2000,2000,2000,2000)
+    #     # time.sleep(0.5)
+    #     # PWM.setMotorModel(0,0,0,0)
 
-    if direction == 'FORWARD':
-        PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(-2000,-2000,-2000,-2000)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
+    # if direction == 'FORWARD':
+    #     PWM.setMotorModel(0,0,0,0)
+    #     PWM.setMotorModel(-2000,-2000,-2000,-2000)
+    #     # time.sleep(0.5)
+    #     # PWM.setMotorModel(0,0,0,0)
 
-    if direction == 'LEFT':
-        PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(0,0,-2000,-2000)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
+    # if direction == 'LEFT':
+    #     PWM.setMotorModel(0,0,0,0)
+    #     PWM.setMotorModel(0,0,-2000,-2000)
+    #     # time.sleep(0.5)
+    #     # PWM.setMotorModel(0,0,0,0)
         
-    if direction == 'RIGHT':
-        PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(-2000,-2000,0,0)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
+    # if direction == 'RIGHT':
+    #     PWM.setMotorModel(0,0,0,0)
+    #     PWM.setMotorModel(-2000,-2000,0,0)
+    #     # time.sleep(0.5)
+    #     # PWM.setMotorModel(0,0,0,0)
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, port=8080)
