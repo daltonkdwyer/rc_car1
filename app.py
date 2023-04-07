@@ -5,7 +5,7 @@ from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
-run_with_ngrok(app)
+# run_with_ngrok(app)
 # PWM = Motor()
 
 print("TESTing")
