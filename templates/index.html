@@ -12,7 +12,9 @@
 
 <script>
     // Connect to the server on the car
-    const direction_socket_server = io('https://095f63f7aabe.ngrok.app');
+    const direction_socket_server = io('https://56ea4cc81769.ngrok.app');
+    // const direction_socket_server = io('http://127.0.0.1:8080');
+
 
     direction_socket_server.on('connect', function() {
       console.log('Connected to server 1');
@@ -21,6 +23,12 @@
     direction_socket_server.on('disconnect', function() {
       console.log('Disconnected');
     });
+
+    // Create a heartbeat
+    setInterval(function(){
+      direction_socket_server.emit('heartbeat')
+    }, 1000)
+
 
     function moveVehicle(direction) {
       direction_socket_server.emit('move_command', {data: direction})

@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, send
 # from Motor import *
 from flask_ngrok import run_with_ngrok
+import time
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -21,6 +22,20 @@ def on_connect():
 @socketio.on('disconnect')
 def on_disconnect():
     print('Client disconnected')
+
+prior_heartbeat = 0
+@socketio.on('heartbeat')
+def heartbeat():
+    global prior_heartbeat
+    # print('Heartbeat')
+    current_heartbeat = int(round(time.time() * 1000))
+    latency = current_heartbeat - prior_heartbeat - 1000
+    print("Heartbeat Latency: " + str(latency))
+    if latency > 15:
+        print("SAFETY STOP")
+        # PWM.setMotorModel(0,0,0,0)
+
+    prior_heartbeat = current_heartbeat
 
 @socketio.on('move_command')
 def handle_my_custom_event(direction):
@@ -54,4 +69,4 @@ def handle_my_custom_event(direction):
     #     # PWM.setMotorModel(0,0,0,0)
 
 if __name__ == '__main__':
-    socketio.run(app, port=8080)
+    socketio.run(app, port=5000)
