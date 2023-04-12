@@ -31,6 +31,8 @@ def heartbeat():
     current_heartbeat = int(round(time.time() * 1000))
     latency = current_heartbeat - prior_heartbeat - 1000
     print("Heartbeat Latency: " + str(latency))
+    emit('server_message', latency)
+
     if latency > 15:
         print("SAFETY STOP")
         # PWM.setMotorModel(0,0,0,0)
