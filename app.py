@@ -7,7 +7,7 @@ import time
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
 # run_with_ngrok(app)
-# PWM = Motor()
+PWM = Motor()
 
 print("Pineaplle")
 
