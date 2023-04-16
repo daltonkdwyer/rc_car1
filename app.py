@@ -42,9 +42,9 @@ def heartbeat():
 
 @socketio.on('move_command')
 def handle_my_custom_event(direction):
-    direction = direction['data']
     print('Received Direction:', direction)
     emit('server_message', direction)
+    direction = direction['data']
 
     if direction == 'STOP':
         PWM.setMotorModel(0,0,0,0)
