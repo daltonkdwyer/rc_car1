@@ -31,7 +31,7 @@ def heartbeat():
     latency = current_heartbeat - prior_heartbeat - 500
     # Unprint out this, as you will get a lot of latency indicators
     print("Heartbeat Latency: " + str(latency))
-    emit('server_message', latency)
+    # emit('server_message', latency)
 
     if latency > 200:
         print("SAFETY STOP")
@@ -43,7 +43,6 @@ def heartbeat():
 @socketio.on('move_command')
 def handle_my_custom_event(direction):
     print('Received Direction:', direction)
-    emit('server_message', direction)
     direction = direction['data']
 
     if direction == 'STOP':
