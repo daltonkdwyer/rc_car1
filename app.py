@@ -27,9 +27,9 @@ prior_heartbeat = 0
 @socketio.on('heartbeat')
 def heartbeat():
     global prior_heartbeat
-    # print('Heartbeat')
     current_heartbeat = int(round(time.time() * 1000))
     latency = current_heartbeat - prior_heartbeat - 500
+    # Unprint out this, as you will get a lot of latency indicators
     print("Heartbeat Latency: " + str(latency))
     emit('server_message', latency)
 
@@ -42,6 +42,7 @@ def heartbeat():
 
 @socketio.on('move_command')
 def handle_my_custom_event(direction):
+    direction = direction['data']
     print('Received Direction:', direction)
     emit('server_message', direction)
 
