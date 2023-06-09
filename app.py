@@ -23,22 +23,31 @@ def on_connect():
 def on_disconnect():
     print('Client disconnected')
 
-prior_heartbeat = 0
+# One attempt at latency protection
+# prior_heartbeat = 0
+# @socketio.on('heartbeat')
+# def heartbeat():
+#     global prior_heartbeat
+#     current_heartbeat = int(round(time.time() * 1000))
+#     latency = current_heartbeat - prior_heartbeat - 500
+#     # Unprint out this, as you will get a lot of latency indicators
+#     print("Heartbeat Latency: " + str(latency))
+#     # emit('server_message', latency)
+
+#     if latency > 200:
+#         print("SAFETY STOP")
+#         emit('server_message', 'SAFETY STOP')
+#         PWM.setMotorModel(0,0,0,0)
+#     prior_heartbeat = current_heartbeat
+
+# Second attempt at latency protection
 @socketio.on('heartbeat')
-def heartbeat():
-    global prior_heartbeat
-    current_heartbeat = int(round(time.time() * 1000))
-    latency = current_heartbeat - prior_heartbeat - 500
-    # Unprint out this, as you will get a lot of latency indicators
-    print("Heartbeat Latency: " + str(latency))
-    # emit('server_message', latency)
-
-    if latency > 200:
-        print("SAFETY STOP")
-        emit('server_message', 'SAFETY STOP')
+def latency_heartbeat(client_time):
+    server_time = int(time.time() * 1000)
+    latency = server_time - int(client_time)
+    print("Latency = " + str(latency))
+    if latency > 1000:
         PWM.setMotorModel(0,0,0,0)
-
-    prior_heartbeat = current_heartbeat
 
 @socketio.on('move_command')
 def handle_my_custom_event(direction):
@@ -51,26 +60,18 @@ def handle_my_custom_event(direction):
     if direction == 'BACK':
         PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(2000,2000,2000,2000)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
 
     if direction == 'FORWARD':
         PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(-2000,-2000,-2000,-2000)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
 
     if direction == 'LEFT':
         PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(0,0,-2000,-2000)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
         
     if direction == 'RIGHT':
         PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(-2000,-2000,0,0)
-        # time.sleep(0.5)
-        # PWM.setMotorModel(0,0,0,0)
 
 if __name__ == '__main__':
     socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
