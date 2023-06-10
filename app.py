@@ -46,8 +46,9 @@ def latency_heartbeat(client_time):
     server_time = int(time.time() * 1000)
     latency = server_time - int(client_time)
     print("Latency = " + str(latency))
-    if latency > 1000:
+    if latency > 2000:
         PWM.setMotorModel(0,0,0,0)
+        socketio.send("LATENCY STOPPPPPPPPP")
 
 @socketio.on('move_command')
 def handle_my_custom_event(direction):
