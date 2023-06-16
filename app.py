@@ -40,6 +40,10 @@ def latency_heartbeat(client_time_received):
 
     time.sleep(3)
 
+    latency_dict = {global_counter: current_counter}
+    server_message = {"Message": "Message", "Data": latency_dict}
+    emit('Server message', server_message)
+
     if current_counter == global_counter:
         server_message = {"Message": "Message", "Data": "Got a latency stop"}
         emit('Server message', server_message)
