@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, send
-#1.  from Motor import *
+from Motor import *
 # from flask_ngrok import run_with_ngrok
 import time
 import datetime
@@ -9,7 +9,7 @@ client_time = 0
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
 # run_with_ngrok(app)
-# 2. PWM = Motor()
+PWM = Motor()
 
 print("Pineaplle")
 
@@ -48,7 +48,7 @@ def latency_heartbeat(client_time_received):
         print("LATENCY STOP")
         server_message = {"Message": "Message", "Data": "Latency Stop!"}
         emit('Server message', server_message)
-        # PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(0,0,0,0)
 
 def server_time_function():
     server_time = int(time.time() * 1000)
@@ -61,27 +61,25 @@ def handle_my_custom_event(direction):
     print('Received Direction:', direction)
     direction = direction['data']
 
-    # 3.
-    # if direction == 'STOP':
-    #     PWM.setMotorModel(0,0,0,0)
+    if direction == 'STOP':
+        PWM.setMotorModel(0,0,0,0)
 
-    # if direction == 'BACK':
-    #     PWM.setMotorModel(0,0,0,0)
-    #     PWM.setMotorModel(2000,2000,2000,2000)
+    if direction == 'BACK':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(2000,2000,2000,2000)
 
-    # if direction == 'FORWARD':
-    #     PWM.setMotorModel(0,0,0,0)
-    #     PWM.setMotorModel(-2000,-2000,-2000,-2000)
+    if direction == 'FORWARD':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(-2000,-2000,-2000,-2000)
 
-    # if direction == 'LEFT':
-    #     PWM.setMotorModel(0,0,0,0)
-    #     PWM.setMotorModel(0,0,-2000,-2000)
+    if direction == 'LEFT':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(0,0,-2000,-2000)
         
-    # if direction == 'RIGHT':
-    #     PWM.setMotorModel(0,0,0,0)
-    #     PWM.setMotorModel(-2000,-2000,0,0)
+    if direction == 'RIGHT':
+        PWM.setMotorModel(0,0,0,0)
+        PWM.setMotorModel(-2000,-2000,0,0)
 
 if __name__ == '__main__':
-    socketio.run(app, port=5000)
-    # 5. 
-    # socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
+    # socketio.run(app, port=5000)
+    socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
