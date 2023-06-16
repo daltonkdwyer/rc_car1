@@ -1,14 +1,12 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, send
 from Motor import *
-# from flask_ngrok import run_with_ngrok
 import time
-import datetime
 client_time = 0
+global_counter = 0
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
-# run_with_ngrok(app)
 PWM = Motor()
 
 print("Pineaplle")
@@ -29,6 +27,8 @@ def on_disconnect():
 @socketio.on('heartbeat')
 def latency_heartbeat(client_time_received):
     global client_time 
+    global global_counter
+    current_counter = global_counter
 
     # Update client time every time a heartbeat is recieved. Probably must be global so the next heartbeat still will update
     client_time = client_time_received
@@ -39,6 +39,13 @@ def latency_heartbeat(client_time_received):
     emit('Server message', server_message)
 
     time.sleep(3)
+
+    if current_counter == global_counter:
+        server_message = {"Message": "Message", "Data": "Got a latency stop"}
+        emit('Server message', server_message)
+        PWM.setMotorModel(0,0,0,0)
+
+
 
     server_time2 = server_time_function()
     delayed_latency = server_time2 - client_time
