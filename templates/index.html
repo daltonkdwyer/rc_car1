@@ -7,6 +7,8 @@
 
 <body>
     <h1>Drive my car...</h1>
+    <div id="latency-indicator"></div>
+
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
@@ -21,8 +23,22 @@
     });
 
     direction_socket_server.on('disconnect', function() {
+      document.getElementById('latency-indicator').innerText = `Disconnected from Server!`;
       console.log('Disconnected');
     });
+
+    direction_socket_server.on('Server message', function(message) {
+      console.log(message);
+      if (message["Message"] == "Latency"){
+        let latencyNumber = message["Data"]
+        // console.log("Control Latency: ", message["Data"], "ms")
+        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}`;
+
+      }
+      if (message["Message"] == "Message"){
+        console.log(message["Data"])
+      }
+    }); 
 
     // First attempt at latency protection
     // // Create a heartbeat
@@ -30,11 +46,11 @@
     //   direction_socket_server.emit('heartbeat')
     // }, 1000)
 
-    // Second attempt at latency protection
+    // Send Heartbeat for latency protection
     setInterval(function(){
         let clientTime = new Date().getTime();
         direction_socket_server.emit('heartbeat', clientTime)
-        console.log("SENT A HEARTBEAT ", clientTime)
+        // console.log("SENT A HEARTBEAT ", clientTime)
     }, 1000)
 
     function moveVehicle(direction) {
