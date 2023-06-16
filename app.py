@@ -44,6 +44,9 @@ def latency_heartbeat(client_time_received):
     delayed_latency = server_time2 - client_time
     print("Delayed Latency: ", str(delayed_latency))
 
+    server_message = {"Message": "Delayed Latency", "Data": delayed_latency}
+    emit('Server message', server_message)
+
     if delayed_latency > 3000:
         print("LATENCY STOP")
         server_message = {"Message": "Message", "Data": "Latency Stop!"}
