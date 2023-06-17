@@ -3,7 +3,6 @@ from flask_socketio import SocketIO, emit, send
 from Motor import *
 import time
 client_time = 0
-global_counter = 0
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -27,34 +26,19 @@ def on_disconnect():
 @socketio.on('heartbeat')
 def latency_heartbeat(client_time_received):
     global client_time 
-    global global_counter
-    current_counter = global_counter
 
     # Update client time every time a heartbeat is recieved. Probably must be global so the next heartbeat still will update
     client_time = client_time_received
     server_time = server_time_function()
     latency = server_time - client_time
-    # print("Real Latency: ", str(latency))
     server_message = {"Message": "Latency", "Data": latency}
     emit('Server message', server_message)
 
     time.sleep(3)
 
-    latency_dict = {global_counter: current_counter}
-    server_message = {"Message": "Message", "Data": latency_dict}
-    emit('Server message', server_message)
-
-    if current_counter == global_counter:
-        server_message = {"Message": "Message", "Data": "Got a latency stop"}
-        emit('Server message', server_message)
-        PWM.setMotorModel(0,0,0,0)
-
-
-
     server_time2 = server_time_function()
     delayed_latency = server_time2 - client_time
     print("Delayed Latency: ", str(delayed_latency))
-
     server_message = {"Message": "Delayed Latency", "Data": delayed_latency}
     emit('Server message', server_message)
 
@@ -67,7 +51,6 @@ def latency_heartbeat(client_time_received):
 def server_time_function():
     server_time = int(time.time() * 1000)
     return server_time
-
 
 
 @socketio.on('move_command')
