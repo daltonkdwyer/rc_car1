@@ -9,7 +9,6 @@
     <h1>Drive my car...</h1>
     <div id="latency-indicator"></div>
 
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
 
 <script>
@@ -31,8 +30,8 @@
       console.log(message);
       if (message["Message"] == "Latency"){
         let latencyNumber = message["Data"]
-        // console.log("Control Latency: ", message["Data"], "ms")
-        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}`;
+        console.log("Control Latency: ", message["Data"], "ms")
+        document.getElementById('latency-indicator').innerText = `Latency: ${latencyNumber}ms`;
 
       }
       if (message["Message"] == "Message"){
@@ -40,13 +39,6 @@
       }
     }); 
 
-    // First attempt at latency protection
-    // // Create a heartbeat
-    // setInterval(function(){
-    //   direction_socket_server.emit('heartbeat')
-    // }, 1000)
-
-    // Send Heartbeat for latency protection
     setInterval(function(){
         let clientTime = new Date().getTime();
         direction_socket_server.emit('heartbeat', clientTime)
