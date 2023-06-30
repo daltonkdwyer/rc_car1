@@ -40,6 +40,10 @@ def latency_heartbeat(client_time_received):
     client_time = client_time_received
     server_message = {"Message": "Latency", "Data": latency}
     emit('Server message', server_message)
+    # Delete this
+    server_message = {"Message": "Message", "Data": "BANNNAANA!"}
+    emit('Server message', server_message)
+
     if latency > 3000:                   
         server_message = {"Message": "Message", "Data": "Latency Stop!"}
         emit('Server message', server_message)
