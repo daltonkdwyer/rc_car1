@@ -94,3 +94,9 @@ def handle_my_custom_event(direction):
 if __name__ == '__main__':
     # socketio.run(app, port=5000)
     socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
+
+
+
+# Type=oneshot
+# ExecStart=sudo -u daltonkdwyer git -C /home/daltonkdwyer/rc_car1 fetch --all
+# ExecStart=sudo -u daltonkdwyer git -C /home/daltonkdwyer/rc_car1 reset --hard origin
