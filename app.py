@@ -40,9 +40,6 @@ def latency_heartbeat(client_time_received):
     client_time = client_time_received
     server_message = {"Message": "Latency", "Data": latency}
     emit('Server message', server_message)
-    # Delete this
-    server_message = {"Message": "Message", "Data": "MANLETSGOO!"}
-    emit('Server message', server_message)
 
     if latency > 3000:                   
         server_message = {"Message": "Message", "Data": "Latency Stop!"}
@@ -85,11 +82,11 @@ def handle_my_custom_event(direction):
 
     if direction == 'LEFT':
         PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(0,0,-2000,-2000)
+        PWM.setMotorModel(0,0,-1000,-1000)
         
     if direction == 'RIGHT':
         PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(-2000,-2000,0,0)
+        PWM.setMotorModel(-1000,-1000,0,0)
 
 if __name__ == '__main__':
     # socketio.run(app, port=5000)
