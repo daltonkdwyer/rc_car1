@@ -82,11 +82,11 @@ def handle_my_custom_event(direction):
 
     if direction == 'LEFT':
         PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(0,0,-1000,-1000)
+        PWM.setMotorModel(0,0,-500,-500)
         
     if direction == 'RIGHT':
         PWM.setMotorModel(0,0,0,0)
-        PWM.setMotorModel(-1000,-1000,0,0)
+        PWM.setMotorModel(-500,-500,0,0)
 
 if __name__ == '__main__':
     # socketio.run(app, port=5000)
