@@ -73,19 +73,15 @@ def handle_my_custom_event(direction):
         PWM.setMotorModel(0,0,0,0)
 
     if direction == 'BACK':
-        PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(2000,2000,2000,2000)
 
     if direction == 'FORWARD':
-        PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(-2000,-2000,-2000,-2000)
 
     if direction == 'LEFT':
-        PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(0,0,-2000,-2000)
         
     if direction == 'RIGHT':
-        PWM.setMotorModel(0,0,0,0)
         PWM.setMotorModel(-2000,-2000,0,0)
 
 if __name__ == '__main__':
