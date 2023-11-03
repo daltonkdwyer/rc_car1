@@ -13,7 +13,7 @@ app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
 PWM = Motor()
 
-print("Pineaplle")
+print("Pineapplee")
 
 @app.route('/')
 def index():
