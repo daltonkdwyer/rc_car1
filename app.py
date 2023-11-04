@@ -8,6 +8,7 @@ client_time = 0
 server_time = 0
 latency = 0
 connection_status = False 
+sent_latency_warning = False
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -44,6 +45,12 @@ def latency_heartbeat(client_time_received):
     if latency > 3000:                   
         server_message = {"Message": "Message", "Data": "Latency Stop!"}
         emit('Server message', server_message)
+        sent_latency_warning == True
+
+    elif sent_latency_warning is True:
+        server_message = {"Message": "Message", "Data": " "}
+        emit('Server message', server_message)
+        sent_latency_warning == False
 
 def latency_protection():
     global connection_status
@@ -57,6 +64,7 @@ def latency_protection():
             latency = server_time - client_time
             print("Latency: " + str(latency) + "ms")
             if latency > 3000:
+                # Unhightlight the below to actually engage the stops
                 PWM.setMotorModel(0,0,0,0)
                 print("LATENCY STOP")
             time.sleep(1)
