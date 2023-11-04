@@ -48,7 +48,7 @@ def latency_heartbeat(client_time_received):
         sent_latency_warning == True
 
     elif sent_latency_warning is True:
-        server_message = {"Message": "Message", "Data": " "}
+        server_message = {"Message": "Message", "Data": "Fine Latency"}
         emit('Server message', server_message)
         sent_latency_warning == False
 
