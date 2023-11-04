@@ -37,6 +37,8 @@ def on_disconnect():
 def latency_heartbeat(client_time_received):
     global client_time 
     global connection_status
+    global sent_latency_stop
+
     connection_status = True
     client_time = client_time_received
     server_message = {"Message": "Latency", "Data": latency}
@@ -47,7 +49,7 @@ def latency_heartbeat(client_time_received):
         emit('Server message', server_message)
         sent_latency_stop = True
 
-    if latency < 3000 and sent_latency_stop == True:
+    elif latency < 3000 and sent_latency_stop == True:
         server_message = {"Message": "Message", "Data": "blank"}
         emit('Server message', server_message)
         sent_latency_stop = False
