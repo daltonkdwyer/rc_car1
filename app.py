@@ -50,7 +50,7 @@ def latency_heartbeat(client_time_received):
         sent_latency_stop = True
 
     elif latency < 3000 and sent_latency_stop == True:
-        server_message = {"Message": "Message", "Data": "blank"}
+        server_message = {"Message": "Message", "Data": " "}
         emit('Server message', server_message)
         sent_latency_stop = False
 
