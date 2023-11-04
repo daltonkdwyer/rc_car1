@@ -8,6 +8,7 @@ client_time = 0
 server_time = 0
 latency = 0
 connection_status = False 
+sent_latency_stop = False
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -44,6 +45,12 @@ def latency_heartbeat(client_time_received):
     if latency > 3000:                   
         server_message = {"Message": "Message", "Data": "Latency Stop!"}
         emit('Server message', server_message)
+        sent_latency_stop = True
+
+    elif sent_latency_stop == True:
+        server_message = {"Message": "Message", "Data": "blank"}
+        emit('Server message', server_message)
+        sent_latency_stop = False
 
 def latency_protection():
     global connection_status
