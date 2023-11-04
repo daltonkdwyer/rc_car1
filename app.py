@@ -45,13 +45,13 @@ def latency_heartbeat(client_time_received):
     if latency > 3000:                   
         server_message = {"Message": "Message", "Data": "Latency Stop!"}
         emit('Server message', server_message)
-        sent_latency_warning == True
+        sent_latency_warning = True
 
-    # # elif sent_latency_warning is True:
-    # if latency < 3000:
-    #     server_message = {"Message": "Message", "Data": "Fine Latency"}
-    #     emit('Server message', server_message)
-    #     sent_latency_warning == False
+    # elif sent_latency_warning is True:
+    if latency < 3000:
+        server_message = {"Message": "Message", "Data": "Fine Latency"}
+        emit('Server message', server_message)
+        sent_latency_warning = False
 
 def latency_protection():
     global connection_status
