@@ -3,6 +3,7 @@ from flask_socketio import SocketIO, emit, send
 from Motor import *
 import threading
 import time
+import subprocess
 
 client_time = 0
 server_time = 0
@@ -32,7 +33,14 @@ def on_disconnect():
     connection_status = False
     print('Client disconnected')
 
+@socketio.on('reboot')
+def remoteReboot():
+    server_message = {"Message": "Message", "Data": "Car received remote reboot command"}
+    emit('Server message', server_message)
+    subprocess.run(["sudo", "reboot"])
+
 # Fourth attempt at latency protection
+# The client sends a timestamp, the vehicle minuses that from the current time on-vehicle, and then sends the latency figure back
 @socketio.on('heartbeat')
 def latency_heartbeat(client_time_received):
     global client_time 
@@ -96,7 +104,6 @@ def handle_my_custom_event(direction):
 if __name__ == '__main__':
     # socketio.run(app, port=5000)
     socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
-
 
 
 # Type=oneshot
