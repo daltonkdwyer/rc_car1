@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, send
 from Motor import *
 import threading
@@ -17,11 +17,8 @@ PWM = Motor()
 
 print("Pineapple 2")
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    if request.method == 'POST':
-        server_message = {"Message": "Message", "Data": "Able to receive post requests"}
-        emit('Server message', server_message)
     return render_template('index.html')
 
 @socketio.on('connect')
