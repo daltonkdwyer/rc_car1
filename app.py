@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, send
 from Motor import *
 import threading
@@ -17,8 +17,11 @@ PWM = Motor()
 
 print("Pineapple 2")
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        server_message = {"Message": "Message", "Data": "Able to receive post requests"}
+        emit('Server message', server_message)
     return render_template('index.html')
 
 @socketio.on('connect')
@@ -58,7 +61,7 @@ def latency_heartbeat(client_time_received):
         sent_latency_stop = True
 
     elif latency < 3000 and sent_latency_stop == True:
-        server_message = {"Message": "Message", "Data": " "}
+        server_message = {"Message": "Message", "Data": "ONLINE (Connected to Car Socket Server via Ngrok)"}
         emit('Server message', server_message)
         sent_latency_stop = False
 
